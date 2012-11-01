@@ -1,9 +1,8 @@
 //
 //  UIView+Coords.h
-//  referto
 //
-//  Created by imac on 04.07.12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Sergey Lukianov on 04.07.12.
+//  Copyright (c) 2012 Sergey Lukianov. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
