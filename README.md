@@ -1,4 +1,6 @@
 UIView-Coords
 =============
 
-Some coordinate utils
+v 0.2
+
+Some UIView Utils
