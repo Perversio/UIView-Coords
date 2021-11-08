@@ -1,57 +1,48 @@
-
-
-typedef enum
-{
-    kTopLeft,
-    kTopRight,
-    kBottomLeft,
-    kBottomRight,
-
-    kTopCenter,
-    kBottomCenter,
-}
-ORIGIN;
+@import UIKit;
 
 @interface UIView (extension)
 
-- (UIView *)findFirstResponder;
+- (UIView *) findFirstResponder;
 
 - (void) setError: (BOOL) flag;
 
 - (void) removeFromSuperviewAnimated:(BOOL)animated;
 
-- (void) setPosition: (CGPoint) pt;
-
-- (void) setSizeWidth: (float) w;
-- (void) setSizeHeight: (float) h;
-
 - (UIImage *) snapshot;
 
-- (void)mirrorPosition;
-- (void)centerInsideSuperview;
-- (void)centerHorizontallyInsideSuperview;
-- (void)setPosition:(CGPoint)position fromOrigin:(ORIGIN)origin;
+- (void) bounce;
+- (void) fadeOut:(NSTimeInterval) duration;
+- (void) fadeIn:(NSTimeInterval) duration;
+- (void) fadeIn;
 
-- (void)bounce;
-- (void)fadeOut:(NSTimeInterval) duration;
-- (void)fadeIn:(NSTimeInterval) duration;
-- (void)fadeIn;
-
-- (void) addConstraintWithItem:(id) item attribute:(NSLayoutAttribute) attr shift:(CGFloat) shift;
+- (NSLayoutConstraint*) addConstraintWithItem:(id) item attribute:(NSLayoutAttribute) attr shift:(CGFloat) shift;
 - (void) addSizeConstraint:(CGSize) size;
 
-- (void) addHeightConstraint:(CGFloat) height;
-- (void) addWidthConstraint:(CGFloat) width;
+- (NSLayoutConstraint*) addHeightConstraint:(CGFloat) height;
+- (NSLayoutConstraint*) addWidthConstraint:(CGFloat) width;
 
 - (void) removeConstraintsWithItems:(NSArray*) items;
 - (void) removeConstraintsWithAttribute:(NSLayoutAttribute) attr;
 - (void) removeSizeConstraints;
 
+- (void) transformScale:(CGFloat) scale duration:(NSTimeInterval) duration;
+- (void) transformScaleAnimated:(CGFloat) scale;
+
+- (void) transformIdentityWithDuration:(NSTimeInterval) duration;
+- (void) transformIdentityAnimated;
+
+- (CAShapeLayer*) addCircleLayerWithSize:(CGFloat)size fillColor:(UIColor*) fill strokeColor:(UIColor*) stroke;
+
 @end
 
 @interface UIView (Coords)
 
-- (CGSize) size;
++ (void) arrangeViewsByOriginX:(NSArray*) views withGap:(CGFloat) gap;
++ (void) arrangeViewsByEdgeX:(NSArray*) views withGap:(CGFloat) gap;
+
+- (void) mirrorPosition;
+
+- (CGSize) kSize;
 - (CGPoint) origin;
 - (CGFloat) originX;
 - (CGFloat) originY;
@@ -60,7 +51,10 @@ ORIGIN;
 - (CGFloat) edgeX;
 - (CGFloat) edgeY;
 
-- (void) setSize:(CGSize) size;
+- (void) fitHeight;
+- (void) setKSize:(CGSize) size;
+- (void) scale:(CGFloat) scale;
+
 - (void) setOrigin:(CGPoint) origin;
 - (void) setOriginX:(CGFloat) x;
 - (void) setOriginY:(CGFloat) y;
@@ -70,6 +64,10 @@ ORIGIN;
 - (void) setEdgeY:(CGFloat) edgeY;
 - (void) strechEdgeX:(CGFloat) edgeX;
 - (void) strechEdgeY:(CGFloat) edgeY;
+
+- (void) copyCenter:(UIView*) source;
+- (void) copyCenterX:(UIView*) source;
+- (void) copyCenterY:(UIView*) source;
 
 - (CGFloat) centerX;
 - (CGFloat) centerY;
@@ -88,26 +86,51 @@ ORIGIN;
 - (void) becomeFrontView;
 - (void) becomeBackView;
 
+- (void) markSubviewsRandom;
 - (void) markRed;
 - (void) markGreen;
 - (void) markRandom;
 
 - (void) hide;
-- (void)hideAnimated:(NSTimeInterval)duration;
+- (void) hideAnimated:(NSTimeInterval)duration;
 - (void) unhide;
-- (void)unhideAnimated:(NSTimeInterval)duration;
+- (void) unhideAnimated:(NSTimeInterval)duration;
+
+- (void) addSubviewsPack:(NSArray *)views;
+
+- (void) removeAllSubviewsExcluding:(NSArray*) exclude;
+- (void) removeAllSubviews;
+
+- (void) hideSubviewsExcluding:(UIView*) exclude animate:(NSTimeInterval) duration;
+- (void) hideSubviewsAnimate:(NSTimeInterval) duration;
+
+- (void) hideSubviewsExcluding:(UIView*) exclude;
+- (void) hideSubviews;
+
+- (void) unhideSubviewsExcluding:(UIView*) exclude animate:(NSTimeInterval) duration;
+- (void) unhideSubviewsAnimate:(NSTimeInterval) duration;
+
+- (void) unhideSubviewsExcluding:(UIView*) exclude;
+- (void) unhideSubviews;
+
+- (id) getSuperviewTop;
+- (id) getSubviewWithClassRecursive:(Class) ofClass;
+- (id) getSubviewWithClass:(Class) ofClass;
+- (id) getSuperviewOfClass:(Class) ofClass;
+
+- (BOOL) containsPoint:(CGPoint) point;
 
 @end
 
 @interface UIView (Layer)
 
-- (UIColor *)borderColor;
-- (void)setBorderColor:(UIColor *)color;
+- (UIColor *) borderColor;
+- (void) setBorderColor:(UIColor *)color;
 
-- (CGFloat)borderWidth;
-- (void)setBorderWidth:(CGFloat)width;
+- (CGFloat) borderWidth;
+- (void) setBorderWidth:(CGFloat)width;
 
-- (CGFloat)cornerRadius;
-- (void)setCornerRadius:(CGFloat)radius;
+- (CGFloat) cornerRadius;
+- (void) setCornerRadius:(CGFloat)radius;
 
 @end
